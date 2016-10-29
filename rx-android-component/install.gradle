@@ -1,0 +1,43 @@
+apply plugin: "com.github.dcendents.android-maven"
+
+// Maven Group ID for the artifact
+group = project.ext.bintray.publishedGroupId
+
+install {
+  repositories.mavenInstaller {
+    // This generates POM.xml with proper parameters
+    pom {
+      project {
+        packaging "aar"
+        groupId project.ext.bintray.publishedGroupId
+        artifactId project.ext.bintray.artifact
+
+        // Add your description here
+        name project.ext.bintray.libraryName
+        description project.ext.bintray.libraryDescription
+        url project.ext.bintray.siteUrl
+
+        // Set your license
+        licenses {
+          license {
+            name project.ext.bintray.licenseName
+            url project.ext.bintray.licenseUrl
+          }
+        }
+        developers {
+          developer {
+            id project.ext.bintray.developerId
+            name project.ext.bintray.developerName
+            email project.ext.bintray.developerEmail
+          }
+        }
+        scm {
+          connection project.ext.bintray.gitUrl
+          developerConnection project.ext.bintray.gitUrl
+          url project.ext.bintray.siteUrl
+
+        }
+      }
+    }
+  }
+}

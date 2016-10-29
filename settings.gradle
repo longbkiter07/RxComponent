@@ -1,0 +1,1 @@
+include ':app', ':rx-java-component', ':rx-android-component'

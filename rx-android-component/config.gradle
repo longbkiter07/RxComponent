@@ -1,0 +1,26 @@
+ext {
+
+  bintray = [
+      bintrayRepo       : "maven",
+      bintrayName       : "rx-android-component",
+
+      publishedGroupId  : "me.silong",
+      libraryName       : "RxComponent for Android",
+      artifact          : "rx-android-component",
+
+      libraryDescription: "RxComponent for Android",
+
+      siteUrl           : "https://github.com/longbkiter07/RxComponent",
+      gitUrl            : "git@github.com:longbkiter07/RxComponent.git",
+
+      libraryVersion    : "0.0.8",
+
+      developerId       : "longbkiter07",
+      developerName     : "Si Long",
+      developerEmail    : "long.bkiter07@gmail.com",
+
+      licenseName       : "The Apache Software License, Version 2.0",
+      licenseUrl        : "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      allLicenses       : ["Apache-2.0"]
+  ]
+}

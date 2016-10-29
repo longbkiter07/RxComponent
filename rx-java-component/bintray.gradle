@@ -1,0 +1,59 @@
+apply plugin: "com.jfrog.bintray"
+apply plugin: 'maven-publish'
+
+version = project.ext.bintray.libraryVersion
+
+task sourcesJar(type: Jar) {
+  from sourceSets.main.java.srcDirs
+  classifier = "sources"
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  classifier = "javadoc"
+  from javadoc.destinationDir
+}
+
+artifacts {
+  archives javadocJar
+  archives sourcesJar
+}
+
+// Bintray
+Properties properties = new Properties()
+properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+publishing {
+  publications {
+    MyPublication(MavenPublication) {
+      from components.java
+      groupId project.ext.bintray.publishedGroupId
+      artifactId project.ext.bintray.artifact
+    }
+  }
+}
+
+bintray {
+  user = properties.getProperty("bintray.user")
+  key = properties.getProperty("bintray.apikey")
+
+  configurations = ["archives"]
+  publications = ['MyPublication']
+  pkg {
+    repo = project.ext.bintray.bintrayRepo
+    name = project.ext.bintray.bintrayName
+    desc = project.ext.bintray.libraryDescription
+    websiteUrl = project.ext.bintray.siteUrl
+    vcsUrl = project.ext.bintray.gitUrl
+    licenses = project.ext.bintray.allLicenses
+    publish = true
+    publicDownloadNumbers = true
+    userOrg = properties.getProperty("bintray.userOrg")
+    version {
+      desc = project.ext.bintray.libraryDescription
+      gpg {
+        sign = true //Determines whether to GPG sign the files. The default is false
+        passphrase = properties.getProperty("bintray.gpg.password") //Optional. The passphrase for GPG signing
+      }
+    }
+  }
+}
